@@ -19,8 +19,20 @@
                 <textarea v-model="form.description" required rows="6" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
             </div>
             <div>
+                <label class="block text-sm text-slate-400 mb-1">Long Description (optional, shown as "How It Plays")</label>
+                <textarea v-model="form.long_description" rows="8" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
+            </div>
+            <div>
                 <label class="block text-sm text-slate-400 mb-1">Features (one per line)</label>
                 <textarea v-model="featuresText" rows="4" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary"></textarea>
+            </div>
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">Modes (JSON array, optional)</label>
+                <textarea v-model="modesText" rows="4" placeholder='[{"name":"Co-op Mode","tag":"2-6 Players","description":"...","highlights":["..."]}]' class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary font-mono text-xs"></textarea>
+            </div>
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">FAQ (JSON array, optional)</label>
+                <textarea v-model="faqText" rows="4" placeholder='[{"question":"...","answer":"..."}]' class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary font-mono text-xs"></textarea>
             </div>
             <div>
                 <label class="block text-sm text-slate-400 mb-1">Play URL</label>
@@ -36,7 +48,7 @@
                     <input v-model="form.banner_url" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary" />
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm text-slate-400 mb-1">Status</label>
                     <select v-model="form.status" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary">
@@ -47,6 +59,13 @@
                 <div>
                     <label class="block text-sm text-slate-400 mb-1">Sort Order</label>
                     <input v-model.number="form.sort_order" type="number" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary" />
+                </div>
+                <div>
+                    <label class="block text-sm text-slate-400 mb-1">Coming Soon</label>
+                    <select v-model="form.coming_soon" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary">
+                        <option :value="false">No</option>
+                        <option :value="true">Yes</option>
+                    </select>
                 </div>
             </div>
             <div v-if="error" class="text-red-400 text-sm">{{ error }}</div>
@@ -77,17 +96,31 @@ const form = ref({
     slug: '',
     short_description: '',
     description: '',
+    long_description: '',
     features: [],
+    modes: [],
+    faq: [],
     play_url: '',
     logo_url: '',
     banner_url: '',
     status: 'draft',
+    coming_soon: false,
     sort_order: 0,
 });
 
 const featuresText = computed({
     get: () => (form.value.features || []).join('\n'),
     set: (val) => { form.value.features = val.split('\n').filter(f => f.trim()); },
+});
+
+const modesText = computed({
+    get: () => form.value.modes ? JSON.stringify(form.value.modes, null, 2) : '',
+    set: (val) => { try { form.value.modes = val ? JSON.parse(val) : []; } catch {} },
+});
+
+const faqText = computed({
+    get: () => form.value.faq ? JSON.stringify(form.value.faq, null, 2) : '',
+    set: (val) => { try { form.value.faq = val ? JSON.parse(val) : []; } catch {} },
 });
 
 onMounted(async () => {

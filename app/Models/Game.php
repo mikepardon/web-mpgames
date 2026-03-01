@@ -11,7 +11,10 @@ class Game extends Model
         'slug',
         'short_description',
         'description',
+        'long_description',
         'features',
+        'modes',
+        'faq',
         'play_url',
         'logo_url',
         'banner_url',
@@ -24,6 +27,8 @@ class Game extends Model
     {
         return [
             'features' => 'array',
+            'modes' => 'array',
+            'faq' => 'array',
             'coming_soon' => 'boolean',
         ];
     }

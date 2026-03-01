@@ -3,7 +3,8 @@
     "allow": [
       "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan migrate)",
       "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan migrate:fresh --seed)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan make:migration add_modes_and_faq_to_games_table --table=games)"
     ]
   }
 }
