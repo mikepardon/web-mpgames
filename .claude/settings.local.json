@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan migrate)",
+      "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan migrate:fresh --seed)",
+      "Bash(npm run build:*)"
+    ]
+  }
+}

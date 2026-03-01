@@ -16,6 +16,7 @@ class Game extends Model
         'logo_url',
         'banner_url',
         'status',
+        'coming_soon',
         'sort_order',
     ];
 
@@ -23,6 +24,7 @@ class Game extends Model
     {
         return [
             'features' => 'array',
+            'coming_soon' => 'boolean',
         ];
     }
 

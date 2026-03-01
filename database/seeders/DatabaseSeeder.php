@@ -32,7 +32,9 @@ class DatabaseSeeder extends Seeder
                 'Real-time online play',
             ],
             'play_url' => 'https://ta.mpgames.io',
+            'banner_url' => 'https://ta.mpgames.io/images/banner.png',
             'status' => 'published',
+            'coming_soon' => false,
             'sort_order' => 1,
         ]);
 
@@ -50,6 +52,7 @@ class DatabaseSeeder extends Seeder
             ],
             'play_url' => 'https://dicewars.mpgames.io',
             'status' => 'published',
+            'coming_soon' => true,
             'sort_order' => 2,
         ]);
 
