@@ -54,7 +54,13 @@
                                 class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 transition-all duration-200"
                                 @click="gamesOpen = false"
                             >
-                                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-xs font-bold text-primary-light shrink-0">
+                                <img
+                                    v-if="game.logo_url"
+                                    :src="game.logo_url"
+                                    :alt="game.name"
+                                    class="w-8 h-8 rounded-lg object-cover shrink-0"
+                                />
+                                <div v-else class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center text-xs font-bold text-primary-light shrink-0">
                                     {{ game.name.substring(0, 2).toUpperCase() }}
                                 </div>
                                 <div>

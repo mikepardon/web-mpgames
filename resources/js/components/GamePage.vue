@@ -270,9 +270,9 @@
                     </div>
 
                     <!-- Sidebar -->
-                    <div class="space-y-6">
+                    <div class="sticky top-24 space-y-6 self-start">
                         <!-- Play Card -->
-                        <div class="glass rounded-2xl p-8 sticky top-24">
+                        <div class="glass rounded-2xl p-8">
                             <div class="text-center mb-6">
                                 <template v-if="!game.coming_soon">
                                     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-sm font-medium border border-green-500/20 mb-4">

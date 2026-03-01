@@ -70,11 +70,11 @@ class DatabaseSeeder extends Seeder
                 ],
                 [
                     'question' => 'How long does a typical game last?',
-                    'answer' => 'A standard game runs 30-60 minutes depending on player count. Duel Mode matches are faster at around 10-15 minutes per round. Co-op campaigns can last 45-90 minutes depending on difficulty.',
+                    'answer' => 'Co-op games typically run around 15 minutes, while Duel Mode matches are even quicker at around 10 minutes. The classic competitive mode varies depending on player count but most games wrap up in 15-30 minutes.',
                 ],
                 [
                     'question' => 'Is there a single-player mode?',
-                    'answer' => 'Trusted Advisors is designed as a multiplayer experience, but you can practice against AI opponents to learn the mechanics and test strategies before playing with real people.',
+                    'answer' => 'Yes! Trusted Advisors has a full single-player section where you can play through campaigns and challenges on your own. Duel Mode also supports playing against bots, so you can practice your strategy or just enjoy a quick game anytime.',
                 ],
                 [
                     'question' => 'Do I need to download anything?',
@@ -83,10 +83,6 @@ class DatabaseSeeder extends Seeder
                 [
                     'question' => 'Is the game pay-to-win?',
                     'answer' => 'Absolutely not. All gameplay-affecting cards and mechanics are available to every player for free. Optional cosmetic add-ons like card skins, custom dice, and advisor portraits are available for purchase but provide no competitive advantage.',
-                ],
-                [
-                    'question' => 'How does the trust system work?',
-                    'answer' => 'Every action you take -- keeping promises, breaking alliances, sharing resources -- affects how other players perceive you. High trust opens up powerful alliance abilities, while low trust makes you feared but isolated. It is a dynamic system that changes every game.',
                 ],
                 [
                     'question' => 'Can I play on my phone?',
@@ -98,6 +94,7 @@ class DatabaseSeeder extends Seeder
                 ],
             ],
             'play_url' => 'https://ta.mpgames.io',
+            'logo_url' => 'https://ta.mpgames.io/images/ta-icon.jpg',
             'banner_url' => 'https://ta.mpgames.io/images/banner.png',
             'status' => 'published',
             'coming_soon' => false,
