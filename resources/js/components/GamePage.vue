@@ -64,11 +64,6 @@
                                 Play Now -- It's Free
                             </a>
                             <div class="flex items-center gap-3 text-sm text-gray-400">
-                                <div class="flex items-center gap-1.5">
-                                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                                    Online now
-                                </div>
-                                <span class="text-gray-700">|</span>
                                 <span>No download required</span>
                             </div>
                         </template>

@@ -15,12 +15,6 @@
             </div>
 
             <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24">
-                <!-- Badge -->
-                <div class="animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-sm text-gray-300 mb-8">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    Players online now
-                </div>
-
                 <!-- Headline -->
                 <h1 class="animate-fade-up-delay-1 text-5xl sm:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-8">
                     <span class="block text-white">Games That</span>
