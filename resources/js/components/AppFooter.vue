@@ -1,5 +1,5 @@
 <template>
-    <footer class="relative border-t border-white/5">
+    <footer class="relative border-t border-white/5 overflow-hidden">
         <!-- Background glow -->
         <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
 

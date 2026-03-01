@@ -20,9 +20,15 @@
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Smooth scroll */
-html {
+/* Smooth scroll & prevent horizontal overflow on mobile */
+html,
+body {
     scroll-behavior: smooth;
+    overflow-x: clip;
+}
+
+#app {
+    overflow-x: clip;
 }
 
 /* Custom scrollbar */

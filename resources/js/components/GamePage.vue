@@ -118,7 +118,7 @@
         </section>
 
         <!-- Game Details -->
-        <section class="relative py-20">
+        <section class="relative py-20 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid lg:grid-cols-3 gap-12">
                     <!-- Main Content -->

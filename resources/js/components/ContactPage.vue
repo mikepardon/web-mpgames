@@ -1,5 +1,5 @@
 <template>
-    <div class="relative min-h-screen">
+    <div class="relative min-h-screen overflow-hidden">
         <!-- Background -->
         <div class="absolute inset-0 bg-surface">
             <div class="absolute inset-0 bg-grid opacity-30"></div>
