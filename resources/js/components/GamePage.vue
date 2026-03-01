@@ -265,7 +265,7 @@
                     </div>
 
                     <!-- Sidebar -->
-                    <div class="sticky top-24 space-y-6 self-start">
+                    <div class="space-y-6 lg:sticky lg:top-24 lg:self-start">
                         <!-- Play Card -->
                         <div class="glass rounded-2xl p-8">
                             <div class="text-center mb-6">
