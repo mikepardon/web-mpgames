@@ -55,13 +55,13 @@ async function handleCallback(code, returnedState) {
     }
 
     // Exchange code via our backend proxy (avoids CORS with auth provider)
+    // redirect_uri is handled server-side from config
     const tokenResponse = await fetch('/api/auth/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
             code,
             code_verifier: codeVerifier,
-            redirect_uri: window.location.origin + '/auth/callback',
         }),
     });
 

@@ -14,40 +14,41 @@ class OauthController extends Controller
         $request->validate([
             'code' => 'required|string',
             'code_verifier' => 'required|string',
-            'redirect_uri' => 'required|string',
         ]);
 
-        $authUrl = config('services.auth_provider.url');
+        $authConfig = config('services.auth_provider');
 
         // Exchange code for token (server-to-server, no CORS)
-        // Must use asForm() - OAuth token endpoints expect x-www-form-urlencoded
+        // Matches trusted-advisors pattern exactly
         $params = [
             'grant_type' => 'authorization_code',
-            'client_id' => config('services.auth_provider.client_id'),
-            'client_secret' => config('services.auth_provider.client_secret'),
-            'redirect_uri' => $request->redirect_uri,
-            'code_verifier' => $request->code_verifier,
+            'client_id' => $authConfig['client_id'],
+            'redirect_uri' => $authConfig['redirect_uri'],
             'code' => $request->code,
+            'code_verifier' => $request->code_verifier,
         ];
 
-        $tokenResponse = Http::asForm()->acceptJson()->post($authUrl . '/oauth/token', $params);
+        // Only include secret for Confidential clients
+        if (!empty($authConfig['client_secret'])) {
+            $params['client_secret'] = $authConfig['client_secret'];
+        }
 
-        if (!$tokenResponse->successful()) {
+        $tokenResponse = Http::asForm()->post($authConfig['url'] . '/oauth/token', $params);
+
+        if ($tokenResponse->failed()) {
             return response()->json([
                 'message' => 'Token exchange failed',
                 'error' => $tokenResponse->json(),
             ], $tokenResponse->status());
         }
 
-        $tokenData = $tokenResponse->json();
-        $accessToken = $tokenData['access_token'];
+        $tokens = $tokenResponse->json();
 
         // Fetch user info from auth provider
-        $userResponse = Http::withToken($accessToken)
-            ->acceptJson()
-            ->get($authUrl . '/api/user');
+        $userResponse = Http::withToken($tokens['access_token'])
+            ->get($authConfig['url'] . '/api/user');
 
-        if (!$userResponse->successful()) {
+        if ($userResponse->failed()) {
             return response()->json([
                 'message' => 'Failed to fetch user info',
             ], 500);
@@ -66,7 +67,7 @@ class OauthController extends Controller
         );
 
         return response()->json([
-            'access_token' => $accessToken,
+            'access_token' => $tokens['access_token'],
             'user' => $oauthUser,
         ]);
     }
