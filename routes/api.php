@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChangelogController;
 use App\Http\Controllers\Api\GameController;
 use App\Http\Controllers\Api\IdeaController;
+use App\Http\Controllers\Api\OauthController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\Admin\ChangelogController as AdminChangelogController;
 use App\Http\Controllers\Api\Admin\DashboardController;
@@ -21,6 +22,9 @@ Route::get('/pages/{slug}', [PageController::class, 'show']);
 Route::get('/games/{slug}/changelog', [ChangelogController::class, 'index']);
 Route::get('/games/{slug}/ideas', [IdeaController::class, 'index']);
 Route::get('/games/{slug}/ideas/{idea}', [IdeaController::class, 'show']);
+
+// OAuth token exchange (proxied to avoid CORS)
+Route::post('/auth/token', [OauthController::class, 'token']);
 
 // OAuth user routes
 Route::middleware('oauth.user')->group(function () {

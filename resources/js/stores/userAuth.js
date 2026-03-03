@@ -54,37 +54,27 @@ async function handleCallback(code, returnedState) {
         throw new Error('State mismatch');
     }
 
-    const tokenResponse = await fetch(`${AUTH_URL}/oauth/token`, {
+    // Exchange code via our backend proxy (avoids CORS with auth provider)
+    const tokenResponse = await fetch('/api/auth/token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
-            grant_type: 'authorization_code',
-            client_id: CLIENT_ID,
-            redirect_uri: window.location.origin + '/auth/callback',
-            code_verifier: codeVerifier,
             code,
+            code_verifier: codeVerifier,
+            redirect_uri: window.location.origin + '/auth/callback',
         }),
     });
 
     if (!tokenResponse.ok) {
-        throw new Error('Token exchange failed');
+        const err = await tokenResponse.json().catch(() => ({}));
+        throw new Error(err.message || 'Token exchange failed');
     }
 
-    const tokenData = await tokenResponse.json();
-    state.token = tokenData.access_token;
+    const data = await tokenResponse.json();
+    state.token = data.access_token;
+    state.user = data.user;
     localStorage.setItem('oauth_token', state.token);
-
-    const userResponse = await fetch(`${AUTH_URL}/api/user`, {
-        headers: {
-            'Authorization': `Bearer ${state.token}`,
-            'Accept': 'application/json',
-        },
-    });
-
-    if (userResponse.ok) {
-        state.user = await userResponse.json();
-        localStorage.setItem('oauth_user', JSON.stringify(state.user));
-    }
+    localStorage.setItem('oauth_user', JSON.stringify(state.user));
 
     sessionStorage.removeItem('oauth_code_verifier');
     sessionStorage.removeItem('oauth_state');
