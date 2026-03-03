@@ -21,13 +21,19 @@ class OauthController extends Controller
 
         // Exchange code for token (server-to-server, no CORS)
         // Must use asForm() - OAuth token endpoints expect x-www-form-urlencoded
-        $tokenResponse = Http::asForm()->acceptJson()->post($authUrl . '/oauth/token', [
+        $params = [
             'grant_type' => 'authorization_code',
             'client_id' => config('services.auth_provider.client_id'),
             'redirect_uri' => $request->redirect_uri,
             'code_verifier' => $request->code_verifier,
             'code' => $request->code,
-        ]);
+        ];
+
+        if ($secret = config('services.auth_provider.client_secret')) {
+            $params['client_secret'] = $secret;
+        }
+
+        $tokenResponse = Http::asForm()->acceptJson()->post($authUrl . '/oauth/token', $params);
 
         if (!$tokenResponse->successful()) {
             return response()->json([

@@ -38,6 +38,7 @@ return [
     'auth_provider' => [
         'url' => env('AUTH_PROVIDER_URL', 'https://auth.mpgames.io'),
         'client_id' => env('AUTH_OAUTH_CLIENT_ID'),
+        'client_secret' => env('AUTH_OAUTH_CLIENT_SECRET'),
     ],
 
 ];
