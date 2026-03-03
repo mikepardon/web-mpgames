@@ -24,14 +24,11 @@ class OauthController extends Controller
         $params = [
             'grant_type' => 'authorization_code',
             'client_id' => config('services.auth_provider.client_id'),
+            'client_secret' => config('services.auth_provider.client_secret'),
             'redirect_uri' => $request->redirect_uri,
             'code_verifier' => $request->code_verifier,
             'code' => $request->code,
         ];
-
-        if ($secret = config('services.auth_provider.client_secret')) {
-            $params['client_secret'] = $secret;
-        }
 
         $tokenResponse = Http::asForm()->acceptJson()->post($authUrl . '/oauth/token', $params);
 
