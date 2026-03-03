@@ -39,6 +39,15 @@ class OauthController extends Controller
             return response()->json([
                 'message' => 'Token exchange failed',
                 'error' => $tokenResponse->json(),
+                // TODO: remove debug after fixing auth
+                'debug' => [
+                    'url' => $authConfig['url'] . '/oauth/token',
+                    'client_id' => $authConfig['client_id'],
+                    'has_secret' => !empty($authConfig['client_secret']),
+                    'secret_length' => strlen($authConfig['client_secret'] ?? ''),
+                    'redirect_uri' => $authConfig['redirect_uri'],
+                    'status' => $tokenResponse->status(),
+                ],
             ], $tokenResponse->status());
         }
 
