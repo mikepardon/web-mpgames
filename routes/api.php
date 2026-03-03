@@ -28,6 +28,7 @@ Route::post('/auth/token', [OauthController::class, 'token']);
 
 // OAuth user routes
 Route::middleware('oauth.user')->group(function () {
+    Route::get('/profile/ideas', [IdeaController::class, 'myIdeas']);
     Route::post('/games/{slug}/ideas', [IdeaController::class, 'store']);
     Route::post('/ideas/{idea}/vote', [IdeaController::class, 'vote']);
     Route::post('/ideas/{idea}/comments', [IdeaController::class, 'storeComment']);

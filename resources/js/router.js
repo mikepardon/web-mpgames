@@ -18,9 +18,11 @@ import AdminPageEdit from './components/admin/AdminPageEdit.vue';
 import AdminChangelog from './components/admin/AdminChangelog.vue';
 import AdminChangelogForm from './components/admin/AdminChangelogForm.vue';
 import AdminIdeas from './components/admin/AdminIdeas.vue';
+import ProfilePage from './components/ProfilePage.vue';
 
 const routes = [
     { path: '/', component: HomePage },
+    { path: '/profile', component: ProfilePage },
     { path: '/games/:slug', component: GamePage },
     { path: '/games/:slug/changelog', component: ChangelogPage },
     { path: '/games/:slug/ideas', component: IdeasPage },

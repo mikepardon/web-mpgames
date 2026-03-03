@@ -10,6 +10,17 @@ use Illuminate\Http\Request;
 
 class IdeaController extends Controller
 {
+    public function myIdeas(Request $request)
+    {
+        $oauthUser = $request->attributes->get('oauth_user');
+
+        return $oauthUser->ideas()
+            ->with('game:id,name,slug')
+            ->withCount('comments')
+            ->orderByDesc('created_at')
+            ->get();
+    }
+
     public function index(Request $request, string $slug)
     {
         $game = Game::published()->where('slug', $slug)->firstOrFail();

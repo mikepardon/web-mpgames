@@ -81,7 +81,7 @@
 
                 <!-- User Auth -->
                 <div v-if="oauthUser" class="flex items-center gap-3 ml-3">
-                    <div class="flex items-center gap-2">
+                    <router-link to="/profile" class="flex items-center gap-2 hover:opacity-80 transition">
                         <div v-if="oauthUser.avatar_url" class="w-7 h-7 rounded-full overflow-hidden">
                             <img :src="oauthUser.avatar_url" :alt="oauthUser.name || oauthUser.username" class="w-full h-full object-cover" />
                         </div>
@@ -89,7 +89,7 @@
                             {{ ((oauthUser.name || oauthUser.username || '?')[0]).toUpperCase() }}
                         </div>
                         <span class="text-sm text-gray-300 font-medium">{{ oauthUser.name || oauthUser.username }}</span>
-                    </div>
+                    </router-link>
                     <button
                         @click="handleLogout"
                         class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 transition"
@@ -158,7 +158,7 @@
                     <!-- Mobile User Auth -->
                     <div class="section-divider my-3"></div>
                     <div v-if="oauthUser" class="px-3 py-3">
-                        <div class="flex items-center gap-2 mb-3">
+                        <router-link to="/profile" class="flex items-center gap-2 mb-3 hover:opacity-80 transition" @click="mobileOpen = false">
                             <div v-if="oauthUser.avatar_url" class="w-7 h-7 rounded-full overflow-hidden">
                                 <img :src="oauthUser.avatar_url" :alt="oauthUser.name || oauthUser.username" class="w-full h-full object-cover" />
                             </div>
@@ -166,7 +166,7 @@
                                 {{ ((oauthUser.name || oauthUser.username || '?')[0]).toUpperCase() }}
                             </div>
                             <span class="text-sm text-gray-300 font-medium">{{ oauthUser.name || oauthUser.username }}</span>
-                        </div>
+                        </router-link>
                         <button
                             @click="handleLogout(); mobileOpen = false"
                             class="block w-full px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 transition text-left"

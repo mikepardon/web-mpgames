@@ -26,7 +26,8 @@ onMounted(async () => {
             return;
         }
         const returnUrl = await handleCallback(code, state);
-        router.replace(returnUrl);
+        // Use window.location for a clean navigation after OAuth redirect
+        window.location.replace(returnUrl || '/profile');
     } catch (e) {
         error.value = e.message || 'Authentication failed';
     }
