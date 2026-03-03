@@ -79,6 +79,32 @@
                     Contact
                 </router-link>
 
+                <!-- User Auth -->
+                <div v-if="oauthUser" class="flex items-center gap-3 ml-3">
+                    <div class="flex items-center gap-2">
+                        <div v-if="oauthUser.avatar_url" class="w-7 h-7 rounded-full overflow-hidden">
+                            <img :src="oauthUser.avatar_url" :alt="oauthUser.name || oauthUser.username" class="w-full h-full object-cover" />
+                        </div>
+                        <div v-else class="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary-light">
+                            {{ ((oauthUser.name || oauthUser.username || '?')[0]).toUpperCase() }}
+                        </div>
+                        <span class="text-sm text-gray-300 font-medium">{{ oauthUser.name || oauthUser.username }}</span>
+                    </div>
+                    <button
+                        @click="handleLogout"
+                        class="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 transition"
+                    >
+                        Sign Out
+                    </button>
+                </div>
+                <button
+                    v-else
+                    @click="handleLogin"
+                    class="ml-3 px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200"
+                >
+                    Sign In
+                </button>
+
                 <!-- CTA -->
                 <router-link
                     v-if="games.length"
@@ -128,6 +154,34 @@
                     <router-link to="/contact" class="block px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition" @click="mobileOpen = false">
                         Contact
                     </router-link>
+
+                    <!-- Mobile User Auth -->
+                    <div class="section-divider my-3"></div>
+                    <div v-if="oauthUser" class="px-3 py-3">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div v-if="oauthUser.avatar_url" class="w-7 h-7 rounded-full overflow-hidden">
+                                <img :src="oauthUser.avatar_url" :alt="oauthUser.name || oauthUser.username" class="w-full h-full object-cover" />
+                            </div>
+                            <div v-else class="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary-light">
+                                {{ ((oauthUser.name || oauthUser.username || '?')[0]).toUpperCase() }}
+                            </div>
+                            <span class="text-sm text-gray-300 font-medium">{{ oauthUser.name || oauthUser.username }}</span>
+                        </div>
+                        <button
+                            @click="handleLogout(); mobileOpen = false"
+                            class="block w-full px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 transition text-left"
+                        >
+                            Sign Out
+                        </button>
+                    </div>
+                    <button
+                        v-else
+                        @click="handleLogin(); mobileOpen = false"
+                        class="block w-full px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition text-left"
+                    >
+                        Sign In
+                    </button>
+
                     <router-link
                         v-if="games.length"
                         :to="`/games/${games[0].slug}`"
@@ -143,13 +197,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { state as userAuthState, loginRedirect, logout as userLogout } from '../stores/userAuth.js';
 
 const games = ref([]);
 const gamesOpen = ref(false);
 const mobileOpen = ref(false);
 const scrolled = ref(false);
 const dropdownRef = ref(null);
+
+const oauthUser = computed(() => userAuthState.user);
+
+function handleLogin() {
+    loginRedirect();
+}
+
+function handleLogout() {
+    userLogout();
+}
 
 function handleScroll() {
     scrolled.value = window.scrollY > 20;

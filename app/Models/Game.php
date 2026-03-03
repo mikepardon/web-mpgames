@@ -42,4 +42,14 @@ class Game extends Model
     {
         return $query->orderBy('sort_order');
     }
+
+    public function changelogEntries()
+    {
+        return $this->hasMany(ChangelogEntry::class);
+    }
+
+    public function ideas()
+    {
+        return $this->hasMany(GameIdea::class);
+    }
 }

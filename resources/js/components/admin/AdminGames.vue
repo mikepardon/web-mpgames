@@ -33,6 +33,8 @@
                         <td class="px-6 py-4 text-slate-400">{{ game.sort_order }}</td>
                         <td class="px-6 py-4 text-right space-x-2">
                             <router-link :to="`/admin/games/${game.id}/edit`" class="text-primary hover:text-primary-light transition">Edit</router-link>
+                            <router-link :to="`/admin/games/${game.id}/changelog`" class="text-blue-400 hover:text-blue-300 transition">Changelog</router-link>
+                            <router-link :to="`/admin/games/${game.id}/ideas`" class="text-purple-400 hover:text-purple-300 transition">Ideas</router-link>
                             <button @click="deleteGame(game)" class="text-red-400 hover:text-red-300 transition">Delete</button>
                         </td>
                     </tr>
