@@ -16,7 +16,7 @@
                     <h1 class="text-4xl sm:text-5xl font-black text-white">{{ page.title }}</h1>
                 </div>
                 <div class="glass rounded-2xl p-8 sm:p-12">
-                    <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed whitespace-pre-line text-base">{{ page.content }}</div>
+                    <div class="prose-rendered" v-html="renderedContent"></div>
                 </div>
             </div>
             <div v-else class="flex items-center justify-center py-32">
@@ -27,8 +27,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 const props = defineProps({
     slug: String,
@@ -36,6 +38,12 @@ const props = defineProps({
 
 const route = useRoute();
 const page = ref(null);
+
+const renderedContent = computed(() => {
+    if (!page.value?.content) return '';
+    const raw = marked.parse(page.value.content);
+    return DOMPurify.sanitize(raw);
+});
 
 async function loadPage() {
     const slug = props.slug || route.params.slug;
