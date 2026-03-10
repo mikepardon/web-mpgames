@@ -48,6 +48,14 @@
                     <input v-model="form.banner_url" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary" />
                 </div>
             </div>
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">Screenshots (one URL per line)</label>
+                <textarea v-model="screenshotsText" rows="4" placeholder="https://example.com/screenshot1.png" class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary font-mono text-xs"></textarea>
+            </div>
+            <div>
+                <label class="block text-sm text-slate-400 mb-1">Reviews (JSON array, optional)</label>
+                <textarea v-model="reviewsText" rows="4" placeholder='[{"name":"Player","rating":5,"text":"Great game!"}]' class="w-full px-4 py-2 bg-surface border border-slate-700 rounded-lg text-white focus:outline-none focus:border-primary font-mono text-xs"></textarea>
+            </div>
             <div class="grid grid-cols-3 gap-4">
                 <div>
                     <label class="block text-sm text-slate-400 mb-1">Status</label>
@@ -103,6 +111,8 @@ const form = ref({
     play_url: '',
     logo_url: '',
     banner_url: '',
+    screenshots: [],
+    reviews: [],
     status: 'draft',
     coming_soon: false,
     sort_order: 0,
@@ -121,6 +131,16 @@ const modesText = computed({
 const faqText = computed({
     get: () => form.value.faq ? JSON.stringify(form.value.faq, null, 2) : '',
     set: (val) => { try { form.value.faq = val ? JSON.parse(val) : []; } catch {} },
+});
+
+const screenshotsText = computed({
+    get: () => (form.value.screenshots || []).join('\n'),
+    set: (val) => { form.value.screenshots = val.split('\n').filter(s => s.trim()); },
+});
+
+const reviewsText = computed({
+    get: () => form.value.reviews ? JSON.stringify(form.value.reviews, null, 2) : '',
+    set: (val) => { try { form.value.reviews = val ? JSON.parse(val) : []; } catch {} },
 });
 
 onMounted(async () => {

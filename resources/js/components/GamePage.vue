@@ -132,6 +132,33 @@
                             <div class="text-gray-300 text-lg leading-relaxed whitespace-pre-line">{{ game.description }}</div>
                         </div>
 
+                        <!-- Screenshots Gallery -->
+                        <div v-if="game.screenshots && game.screenshots.length">
+                            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                                <div class="w-1 h-7 bg-primary rounded-full"></div>
+                                Screenshots
+                            </h2>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <button
+                                    v-for="(screenshot, i) in game.screenshots"
+                                    :key="i"
+                                    @click="openLightbox(i)"
+                                    class="relative aspect-video rounded-xl overflow-hidden group cursor-pointer"
+                                >
+                                    <img
+                                        :src="screenshot"
+                                        :alt="`${game.name} screenshot ${i + 1}`"
+                                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Extended Description -->
                         <div v-if="game.long_description">
                             <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
@@ -224,6 +251,42 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player Reviews -->
+                        <div v-if="game.reviews && game.reviews.length">
+                            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                                <div class="w-1 h-7 bg-yellow-500 rounded-full"></div>
+                                Player Reviews
+                            </h2>
+                            <div class="space-y-4">
+                                <div
+                                    v-for="(review, i) in game.reviews"
+                                    :key="i"
+                                    class="glass rounded-xl p-5 sm:p-6"
+                                >
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-primary/30 to-accent/30 border border-white/10 flex items-center justify-center shrink-0">
+                                            <span class="text-sm font-bold text-white">{{ review.name.charAt(0) }}</span>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-white text-sm">{{ review.name }}</div>
+                                            <div class="flex gap-0.5">
+                                                <svg
+                                                    v-for="s in 5"
+                                                    :key="s"
+                                                    :class="['w-3.5 h-3.5', s <= review.rating ? 'text-yellow-400' : 'text-gray-600']"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-400 text-sm leading-relaxed">{{ review.text }}</p>
                                 </div>
                             </div>
                         </div>
@@ -524,6 +587,44 @@
                 </div>
             </div>
         </section>
+
+        <!-- Screenshot Lightbox -->
+        <Teleport to="body">
+            <div
+                v-if="lightboxOpen"
+                class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm"
+                @click.self="closeLightbox"
+            >
+                <button @click="closeLightbox" class="absolute top-6 right-6 text-white/70 hover:text-white transition z-10">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <button v-if="game?.screenshots?.length > 1" @click="prevScreenshot" class="absolute left-4 text-white/70 hover:text-white transition z-10">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button v-if="game?.screenshots?.length > 1" @click="nextScreenshot" class="absolute right-4 text-white/70 hover:text-white transition z-10">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <img
+                    :src="game.screenshots[lightboxIndex]"
+                    :alt="`${game.name} screenshot ${lightboxIndex + 1}`"
+                    class="max-w-[90vw] max-h-[85vh] object-contain rounded-lg shadow-2xl"
+                />
+                <div v-if="game?.screenshots?.length > 1" class="absolute bottom-6 flex gap-2">
+                    <button
+                        v-for="(_, i) in game.screenshots"
+                        :key="i"
+                        @click="lightboxIndex = i"
+                        :class="['w-2.5 h-2.5 rounded-full transition', i === lightboxIndex ? 'bg-white' : 'bg-white/30 hover:bg-white/60']"
+                    ></button>
+                </div>
+            </div>
+        </Teleport>
     </div>
 
     <!-- Loading State -->
@@ -544,6 +645,8 @@ const game = ref(null);
 const allGames = ref([]);
 const copied = ref(false);
 const openFaqs = reactive(new Set());
+const lightboxOpen = ref(false);
+const lightboxIndex = ref(0);
 
 const otherGames = computed(() => {
     if (!game.value) return [];
@@ -561,6 +664,27 @@ const shareUrls = computed(() => {
         whatsapp: `https://wa.me/?text=${title}%20${url}`,
     };
 });
+
+function openLightbox(index) {
+    lightboxIndex.value = index;
+    lightboxOpen.value = true;
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    lightboxOpen.value = false;
+    document.body.style.overflow = '';
+}
+
+function nextScreenshot() {
+    if (!game.value?.screenshots) return;
+    lightboxIndex.value = (lightboxIndex.value + 1) % game.value.screenshots.length;
+}
+
+function prevScreenshot() {
+    if (!game.value?.screenshots) return;
+    lightboxIndex.value = (lightboxIndex.value - 1 + game.value.screenshots.length) % game.value.screenshots.length;
+}
 
 function toggleFaq(index) {
     if (openFaqs.has(index)) {

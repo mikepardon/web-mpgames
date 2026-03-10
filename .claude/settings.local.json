@@ -5,7 +5,8 @@
       "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan migrate:fresh --seed)",
       "Bash(npm run build:*)",
       "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" artisan make:migration add_modes_and_faq_to_games_table --table=games)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(\"C:/Users/Michael/.config/herd/bin/php.bat\" /d/Code/mpgames/artisan db:seed --class=ChangelogSeeder)"
     ]
   }
 }

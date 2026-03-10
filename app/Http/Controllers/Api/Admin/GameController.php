@@ -24,6 +24,9 @@ class GameController extends Controller
             'play_url' => 'required|url',
             'logo_url' => 'nullable|string',
             'banner_url' => 'nullable|string',
+            'screenshots' => 'nullable|array',
+            'screenshots.*' => 'string',
+            'reviews' => 'nullable|array',
             'status' => 'in:draft,published',
             'sort_order' => 'integer',
         ]);
@@ -49,6 +52,9 @@ class GameController extends Controller
             'play_url' => 'sometimes|required|url',
             'logo_url' => 'nullable|string',
             'banner_url' => 'nullable|string',
+            'screenshots' => 'nullable|array',
+            'screenshots.*' => 'string',
+            'reviews' => 'nullable|array',
             'status' => 'in:draft,published',
             'sort_order' => 'integer',
         ]);

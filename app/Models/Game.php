@@ -18,6 +18,8 @@ class Game extends Model
         'play_url',
         'logo_url',
         'banner_url',
+        'screenshots',
+        'reviews',
         'status',
         'coming_soon',
         'sort_order',
@@ -29,6 +31,8 @@ class Game extends Model
             'features' => 'array',
             'modes' => 'array',
             'faq' => 'array',
+            'screenshots' => 'array',
+            'reviews' => 'array',
             'coming_soon' => 'boolean',
         ];
     }
