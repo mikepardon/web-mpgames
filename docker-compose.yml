@@ -7,10 +7,6 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.mpgames-app.rule=Host(`mpgames.io`)
-      - traefik.http.routers.mpgames-app.entrypoints=websecure
-      - traefik.http.routers.mpgames-app.tls=true
-      - traefik.http.routers.mpgames-app.tls.certresolver=letsencrypt
-      - traefik.http.services.mpgames-app.loadbalancer.server.port=80
     networks:
       - default
       - traefik
