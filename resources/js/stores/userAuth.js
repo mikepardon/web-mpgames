@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-const AUTH_URL = window.OAUTH_REDIRECT_URI;
+const AUTH_URL = window.OAUTH_PROVIDER_URI;
 const CLIENT_ID = window.OAUTH_CLIENT_ID;
 
 const state = reactive({
