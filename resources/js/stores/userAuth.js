@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 
-const AUTH_URL = import.meta.env.VITE_AUTH_PROVIDER_URL || 'https://auth.mpgames.io';
-const CLIENT_ID = import.meta.env.VITE_AUTH_OAUTH_CLIENT_ID || '';
+const AUTH_URL = window.OAUTH_REDIRECT_URI;
+const CLIENT_ID = window.OAUTH_CLIENT_ID;
 
 const state = reactive({
     user: JSON.parse(localStorage.getItem('oauth_user') || 'null'),
