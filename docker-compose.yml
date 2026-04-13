@@ -12,6 +12,14 @@ services:
       - traefik
     restart: unless-stopped
     env_file: .env.production
+    environment:
+      - AUTH_PROVIDER_URL
+      - AUTH_OAUTH_CLIENT_ID
+      - AUTH_OAUTH_CLIENT_SECRET
+      - AUTH_OAUTH_REDIRECT_URI
+      - VITE_AUTH_PROVIDER_URL
+      - VITE_AUTH_OAUTH_CLIENT_ID
+      - VITE_APP_NAME
     volumes:
       - app-storage:/var/www/html/storage/app
       - app-logs:/var/www/html/storage/logs
