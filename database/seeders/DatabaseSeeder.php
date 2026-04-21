@@ -202,6 +202,73 @@ class DatabaseSeeder extends Seeder
             'sort_order' => 2,
         ]);
 
+        Game::updateOrCreate(
+            ['slug' => 'fantasy-ledger'],
+            [
+            'name' => 'Fantasy Ledger',
+            'short_description' => 'Your fantasy football league\'s complete history. Connect your ESPN league and unlock career stats, records, head-to-head breakdowns, and more.',
+            'description' => "Fantasy Ledger preserves and analyzes your fantasy football league's entire history. Connect your ESPN league and instantly unlock detailed stats, records, head-to-head breakdowns, draft history, and season replays -- spanning every season your league has played.\n\nTurn years of league data into compelling stories, settle rivalries with real numbers, and discover records you never knew existed.",
+            'long_description' => "Fantasy Ledger connects directly to ESPN's Fantasy Football API to sync your league's complete history -- every season, every matchup, every draft pick. Once connected, the platform builds a comprehensive record book for your league that goes far beyond what ESPN provides.\n\nCareer Stats show all-time standings, win percentages, and points-for rankings so you can see who really is the best manager across all seasons. The Record Book captures the highest scores, biggest blowouts, closest games, and the best and worst seasons in league history.\n\nHead-to-Head comparisons let you pit any two owners against each other across every matchup they have ever played -- perfect for settling rivalries and finding your true nemesis. Draft History tracks every pick from every draft, revealing who reached, who stole sleepers, and who busted.\n\nSeason Replay lets you relive any past season week by week with standings races, awards, and playoff brackets. And for the less fortunate managers, the Loser Cup tracks repeat offenders and the worst performances in league history.\n\nWhether your league has been running for 3 years or 20, Fantasy Ledger turns your raw data into a living archive of rivalries, glory, and shame.",
+            'features' => [
+                'Career stats with all-time standings and win percentages',
+                'Record book for highest scores, blowouts, and closest games',
+                'Head-to-head comparisons across all matchups',
+                'Complete draft history for every season',
+                'Season replay with standings races and playoff brackets',
+                'Loser Cup hall of shame',
+                'Power rankings and visualizations',
+                'ESPN league sync -- connect once, stats update automatically',
+            ],
+            'modes' => [
+                [
+                    'name' => 'League Dashboard',
+                    'tag' => 'Overview',
+                    'description' => 'Your league at a glance. See current standings, recent results, and key stats all in one place. The dashboard updates automatically as your ESPN league progresses through the season.',
+                    'highlights' => [
+                        'All-time standings and career arcs',
+                        'Current season overview',
+                        'Quick access to records and head-to-head tools',
+                    ],
+                ],
+                [
+                    'name' => 'Record Book',
+                    'tag' => 'All-Time',
+                    'description' => 'Every notable achievement and record in your league\'s history. From the highest single-week score to the longest win streak, the Record Book captures it all.',
+                    'highlights' => [
+                        'Highest and lowest scores of all time',
+                        'Biggest blowouts and closest finishes',
+                        'Best and worst seasons by any owner',
+                    ],
+                ],
+            ],
+            'faq' => [
+                [
+                    'question' => 'Which fantasy platforms are supported?',
+                    'answer' => 'Fantasy Ledger currently supports ESPN Fantasy Football leagues. Support for other platforms is being explored.',
+                ],
+                [
+                    'question' => 'How far back does it go?',
+                    'answer' => 'Fantasy Ledger syncs your league\'s entire available history from ESPN. If ESPN has the data, Fantasy Ledger will pull it in.',
+                ],
+                [
+                    'question' => 'Is my league data private?',
+                    'answer' => 'You control your league\'s visibility. Leagues can be set to public or private, and only invited members can access private league data.',
+                ],
+                [
+                    'question' => 'Do I need to download anything?',
+                    'answer' => 'No. Fantasy Ledger runs entirely in your browser. Just sign in, connect your ESPN league, and start exploring your history.',
+                ],
+            ],
+            'play_url' => 'https://fantasyledger.io',
+            'logo_url' => 'https://fantasyledger.io/images/logo.png',
+            'banner_url' => null,
+            'screenshots' => [],
+            'reviews' => [],
+            'status' => 'published',
+            'coming_soon' => false,
+            'sort_order' => 3,
+        ]);
+
         Page::updateOrCreate(
             ['slug' => 'privacy-policy'],
             [
